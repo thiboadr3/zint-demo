@@ -34,11 +34,11 @@
         <li><a href="#veerle">Over Veerle</a></li>
       </ul>
       <details class="bar__menu">
-        <summary>Menu</summary>
-        <ul>
+        <summary aria-label="Menu"><svg class="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg><svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></summary>
+        <ul class="bar__panel">
           <li><a href="#maatwerk">Maatwerk</a></li>
           <li><a href="#projectcheck">Richtprijs</a></li>
-        <li><a href="#aanpak">Aanpak</a></li>
+          <li><a href="#aanpak">Aanpak</a></li>
           <li><a href="#projecten">Projecten</a></li>
           <li><a href="#veerle">Over Veerle</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -298,6 +298,13 @@
 </footer>
 
 <script>
+const menu = document.querySelector('.bar__menu');
+menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { menu.open = false; }));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary').focus(); }
+});
+document.addEventListener('click', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+
 document.querySelectorAll('[data-vn]').forEach((frame) => {
   const range = frame.querySelector('.vn__range');
   const set = () => frame.style.setProperty('--pos', range.value + '%');
